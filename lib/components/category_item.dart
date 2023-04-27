@@ -1,3 +1,6 @@
+import 'package:lethimcook/screens/categories_meals_screen.dart';
+import 'package:lethimcook/utils/app_routes.dart';
+
 import '../models/category.dart';
 import 'package:flutter/material.dart';
 
@@ -6,24 +9,33 @@ class CategoryItem extends StatelessWidget {
 
   const CategoryItem(this.category, {super.key});
 
+  void _selectCategory(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.categoriesMeals, arguments: category);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: category.color,
-          border: Border.all(color: category.color),
-          borderRadius: BorderRadius.circular(12)),
-      child: Align(
-          alignment: Alignment.bottomRight,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+    return InkWell(
+      onTap: () => _selectCategory(context),
+      borderRadius: BorderRadius.circular(15),
+      splashColor: Theme.of(context).colorScheme.primary,
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [category.color.withOpacity(0.5), category.color],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight),
+            // border: Border.all(),
+            borderRadius: BorderRadius.circular(15)),
+        child: Align(
+            alignment: Alignment.bottomRight,
             child: Text(
               category.title,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          )),
+              style: Theme.of(context).textTheme.titleLarge,
+            )),
+      ),
     );
   }
 }
