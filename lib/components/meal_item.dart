@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:lethimcook/models/meal.dart';
 
+import '../utils/app_routes.dart';
+
 class MealItem extends StatelessWidget {
   final Meal meal;
 
   const MealItem({super.key, required this.meal});
 
-  void _selectMeal() {}
+  void _selectMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.mealDetail, arguments: meal);
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: _selectMeal,
+      onTap: () => _selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
@@ -30,18 +34,46 @@ class MealItem extends StatelessWidget {
                       width: double.infinity,
                       fit: BoxFit.cover,
                     )),
-                Container(
-                  width: 300,
-                  color: Colors.black54,
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                  child: Text(
-                    meal.title,
-                    style: const TextStyle(fontSize: 26, color: Colors.white),
-                    softWrap: true,
-                    overflow: TextOverflow.fade,
+                Positioned(
+                  bottom: 20,
+                  right: 10,
+                  child: Container(
+                    width: 300,
+                    color: Colors.black54,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    child: Text(
+                      meal.title,
+                      style: const TextStyle(fontSize: 26, color: Colors.white),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
                   ),
                 )
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.schedule),
+                      Text('${meal.duration} min')
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(Icons.work_outline),
+                      Text(meal.complexityText)
+                    ],
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: meal.costFigures)
+                ],
+              ),
             )
           ],
         ),

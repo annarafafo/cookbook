@@ -15,7 +15,7 @@ class CategoriesMealsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(category.title),
+        title: Text(category.title, style: Theme.of(context).textTheme.titleSmall),
       ),
       body: ListView.builder(
         itemCount: categoryMeals.length,

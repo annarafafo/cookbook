@@ -1,4 +1,3 @@
-import 'package:lethimcook/screens/categories_meals_screen.dart';
 import 'package:lethimcook/utils/app_routes.dart';
 
 import '../models/category.dart';
@@ -10,7 +9,8 @@ class CategoryItem extends StatelessWidget {
   const CategoryItem(this.category, {super.key});
 
   void _selectCategory(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.categoriesMeals, arguments: category);
+    Navigator.of(context)
+        .pushNamed(AppRoutes.categoriesMeals, arguments: category);
   }
 
   @override
@@ -33,7 +33,7 @@ class CategoryItem extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Text(
               category.title,
-              style: Theme.of(context).textTheme.titleLarge,
+              style: Theme.of(context).textTheme.titleMedium,
             )),
       ),
     );
