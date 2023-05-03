@@ -1,18 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lethimcook/data/dummy_data.dart';
+import 'package:lethimcook/models/meal.dart';
+import 'package:lethimcook/models/settings.dart';
 import 'package:lethimcook/screens/categories_meals_screen.dart';
-import 'package:lethimcook/screens/categories_screen.dart';
 import 'package:lethimcook/screens/meal_detail_screen.dart';
+import 'package:lethimcook/screens/settings_screen.dart';
+import 'package:lethimcook/screens/tabs_screen.dart';
 import 'package:lethimcook/utils/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Meal> _availableMeals = dummyMeals;
+  Settings settings = Settings();
+
+  void _setConfigurations(Settings settings) {
+    setState(() {
+      _availableMeals = _availableMeals.where((meal) {
+        return meal.isGlutenFree == settings.isGlutenFree &&
+            meal.isLactoseFree == settings.isLactoseFree &&
+            meal.isVegan == settings.isVegan &&
+            meal.isVegetarian == settings.isVegetarian;
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = ThemeData();
@@ -38,9 +60,11 @@ class MyApp extends StatelessWidget {
                   fontFamily: GoogleFonts.robotoCondensed().fontFamily))),
       initialRoute: AppRoutes.home,
       routes: {
-        AppRoutes.home: (ctx) => const CategoriesScreen(),
-        AppRoutes.categoriesMeals: (ctx) => const CategoriesMealsScreen(),
-        AppRoutes.mealDetail: (ctx) => const MealDetailScreen()
+        AppRoutes.home: (ctx) => const TabsScreen(),
+        AppRoutes.categoriesMeals: (ctx) =>
+            CategoriesMealsScreen(meals: _availableMeals),
+        AppRoutes.mealDetail: (ctx) => const MealDetailScreen(),
+        AppRoutes.settings: (ctx) => SettingsScreen(settings: settings, setConfigurations: _setConfigurations,)
       },
     );
   }
