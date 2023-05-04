@@ -26,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Widget makeSetting(String title, String subtitle, bool switchValue,
         Function(bool) changeSwitch) {
       return ListTile(
-        title: Text(title),
+        title: Text(title, style: const TextStyle(color: Colors.black),),
         subtitle: Text(subtitle),
         trailing: Switch.adaptive(
             activeColor: Theme.of(context).colorScheme.primary,

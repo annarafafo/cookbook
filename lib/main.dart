@@ -22,15 +22,22 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Meal> _availableMeals = dummyMeals;
+  List<Meal> _favoriteMeals = dummyMeals;
+
   Settings settings = Settings();
 
   void _setConfigurations(Settings settings) {
     setState(() {
-      _availableMeals = _availableMeals.where((meal) {
-        return meal.isGlutenFree == settings.isGlutenFree &&
-            meal.isLactoseFree == settings.isLactoseFree &&
-            meal.isVegan == settings.isVegan &&
-            meal.isVegetarian == settings.isVegetarian;
+      _availableMeals = dummyMeals.where((meal) {
+        final filterGluten = settings.isGlutenFree && !meal.isGlutenFree;
+        final filterLactose = settings.isLactoseFree && !meal.isLactoseFree;
+        final filterVegan = settings.isVegan && !meal.isVegan;
+        final filterVegetarian = settings.isVegetarian && !meal.isVegetarian;
+
+        return !filterGluten &&
+            !filterLactose &&
+            !filterVegan &&
+            !filterVegetarian;
       }).toList();
     });
   }
@@ -64,7 +71,10 @@ class _MyAppState extends State<MyApp> {
         AppRoutes.categoriesMeals: (ctx) =>
             CategoriesMealsScreen(meals: _availableMeals),
         AppRoutes.mealDetail: (ctx) => const MealDetailScreen(),
-        AppRoutes.settings: (ctx) => SettingsScreen(settings: settings, setConfigurations: _setConfigurations,)
+        AppRoutes.settings: (ctx) => SettingsScreen(
+              settings: settings,
+              setConfigurations: _setConfigurations,
+            )
       },
     );
   }
