@@ -31,7 +31,7 @@ class MainDrawer extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             color: Theme.of(context).colorScheme.secondary,
             child: Text(
-              'Let him COOK!',
+              'CookBook',
               style: TextStyle(
                   fontWeight: FontWeight.w900,
                   fontSize: 30,

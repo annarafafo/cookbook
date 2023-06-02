@@ -46,7 +46,10 @@ class MealDetailScreen extends StatelessWidget {
                   return ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Theme.of(context).colorScheme.primary,
-                      child: Text('${index + 1}'),
+                      child: Text(
+                        '${index + 1}',
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
                     title: Text(
                       meal.steps[index],
@@ -60,7 +63,6 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){}, child: const Icon(Icons.star),),
     );
   }
 }
