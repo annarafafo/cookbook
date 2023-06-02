@@ -22,8 +22,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Meal> _availableMeals = dummyMeals;
-  List<Meal> _favoriteMeals = dummyMeals;
-
   Settings settings = Settings();
 
   void _setConfigurations(Settings settings) {
